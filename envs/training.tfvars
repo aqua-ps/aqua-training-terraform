@@ -2,21 +2,21 @@ region = "us-east-2"
 
 //** VPC ***********************//
 
-vpc_name = "test-playground-vpc-az"
+vpc_name = "test-training-vpc-az"
 vpc_cidr = "10.0.0.0/16"
 public_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 
 
 //** TAGS ***********************//
 environment = "test"
-application = "playground"
+application = "training"
 
 //** SG ***********************//
 ingress_cidr_blocks_web = ["0.0.0.0/0"]
 ingress_cidr_blocks_ssh = ["0.0.0.0/0"]
 
 //** EC2 ***********************//
-ec2_name = "aqua-playground"
+ec2_name = "aqua-training"
 instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-044696ab785e77725"

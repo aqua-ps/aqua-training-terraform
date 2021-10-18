@@ -25,7 +25,7 @@ Use the Vagrantfile adding to the section `config.vm.provision` to test addition
 ```
 ...
 config.vm.provision "shell", inline: <<-SHELL
-  curl -sL https://raw.githubusercontent.com/andreazorzetto/aqua-playground-userscript/master/user-script.sh | bash -
+  curl -sL https://raw.githubusercontent.com/andreazorzetto/aqua-training-userscript/master/user-script.sh | bash -
   <add new script or shell code here>
 SHELL
 ...
@@ -37,7 +37,7 @@ locals {
   user_data = <<EOF
 #!/bin/bash
 
-curl -sL https://raw.githubusercontent.com/andreazorzetto/aqua-playground-userscript/master/user-script.sh | bash -
+curl -sL https://raw.githubusercontent.com/andreazorzetto/aqua-training-userscript/master/user-script.sh | bash -
 
 <add new script or shell code here>
 
@@ -55,6 +55,6 @@ terraform init
 
 Plan and apply
 ```
-terraform plan -var-file envs/playground.tfvars
-terraform apply -var-file envs/playground.tfvars
+terraform plan -var-file envs/training.tfvars
+terraform apply -var-file envs/training.tfvars
 ```
