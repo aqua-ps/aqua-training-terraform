@@ -1,8 +1,7 @@
 # How to use
 
-### Test User Script in Vagrant
+### Test with Vagrant
 Test the user script used as the ec2 instance bootstrap in Vagrant
-
 
 Create Vagrant machine
 ```
@@ -17,12 +16,12 @@ vagrant ssh
 Clean up
 ```
 vagrant halt
-vagrant detroy
+vagrant destroy
 ```
 
 ### Bootstrap development
 
-Use the Vagrantfile and add to the config.vm.provision to test additional configuration
+Use the Vagrantfile adding to the section `config.vm.provision` to test additional configuration. This can be a script coming from a repo or inline scripting.
 ```
 ...
 config.vm.provision "shell", inline: <<-SHELL
@@ -32,7 +31,7 @@ SHELL
 ...
 ```
 
-Eventually add the tested logic to the original user-script or make a change adding an additional script to the terraform `locals.tf` file:
+Eventually, add to the original user-script or to the terraform `locals.tf` file like in the following example:
 ```
 locals {
   user_data = <<EOF
