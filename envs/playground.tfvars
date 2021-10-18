@@ -17,7 +17,7 @@ ingress_cidr_blocks_ssh = ["0.0.0.0/0"]
 
 //** EC2 ***********************//
 ec2_name = "aqua-playground"
-instance_count = 2
+instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-044696ab785e77725"
 
