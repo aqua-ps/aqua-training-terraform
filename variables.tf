@@ -64,3 +64,11 @@ variable "root_volume_size" {
 }
 
 variable "keypair_pubkey" {}
+
+variable "bootstrap_username" {
+  description = "Username used to bootstrap vm ssh and Jenkins user"
+}
+
+variable "bootstrap_password" {
+  description = "Password used to bootstrap vm ssh and Jenkins user"
+}
