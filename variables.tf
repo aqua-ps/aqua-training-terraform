@@ -60,13 +60,14 @@ variable "ebs_volume_size" {
 }
 
 variable "root_volume_size" {
-  default = null
+  default = 30
 }
 
 variable "keypair_pubkey" {}
 
 variable "bootstrap_username" {
   description = "Username used to bootstrap vm ssh and Jenkins user"
+  default = "aquasec"
 }
 
 variable "bootstrap_password" {
