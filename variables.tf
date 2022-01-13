@@ -72,3 +72,8 @@ variable "bootstrap_username" {
 variable "bootstrap_password" {
   description = "Password used to bootstrap vm ssh and Jenkins user"
 }
+
+variable "bootstrap_version" {
+  description = "Version of the bootstrap script to use as tagged in the Github repo"
+  default = "master"
+}
