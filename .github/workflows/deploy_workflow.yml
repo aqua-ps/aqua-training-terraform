@@ -1,15 +1,15 @@
 name: deploy_tap
-on:
-  workflow_call:
-    inputs:
-      tap_name:
-        description: 'A unique identifier for this TAP deployment'
-        required: true
-        type: string
-      instance_count:
-        description: 'Number of instances'
-        required: true
-        type: number
+on: [push]
+#   workflow_call:
+#     inputs:
+#       tap_name:
+#         description: 'A unique identifier for this TAP deployment'
+#         required: true
+#         type: string
+#       instance_count:
+#         description: 'Number of instances'
+#         required: true
+#         type: number
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
