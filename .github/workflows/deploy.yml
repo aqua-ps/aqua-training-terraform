@@ -1,0 +1,22 @@
+name: deploy
+on:
+  workflow_call:
+    inputs:
+      tap_name:
+        description: 'A unique identifier for this TAP deployment'
+        required: true
+        type: string
+      instance_count:
+        description: 'Number of instances'
+        required: true
+        type: number
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: echo "test"
+      - run: terraform version
