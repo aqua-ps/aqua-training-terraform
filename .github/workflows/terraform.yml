@@ -47,12 +47,15 @@ jobs:
       run: echo $aws_creds_file > ~/.aws/credentials
       env:
         aws_creds_file: ${{ secrets.AWS_CREDENTIALS }}
+        
+    - name: check file
+      run: cat ~/.aws/credentials
 
     # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -input=false --var-file envs/tap-demo.tfvars -var "bootstrap_password=$tap_user_pass"
-      env:
-        tap_user_pass: ${{ secrets.TAP_USER_PASS }}
+#     - name: Terraform Plan
+#       run: terraform plan -input=false --var-file envs/tap-demo.tfvars -var "bootstrap_password=$tap_user_pass"
+#       env:
+#         tap_user_pass: ${{ secrets.TAP_USER_PASS }}
         
 
       # On push to master, build or change infrastructure according to Terraform configuration files
