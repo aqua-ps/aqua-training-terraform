@@ -84,6 +84,14 @@ jobs:
       run: terraform fmt
 #       run: terraform fmt -check
 
+    - name: create AWS folder
+      run: mkdir ~/.aws
+      
+    - name: Write creds
+      run: echo $aws_creds_file > ~/.aws/credentials
+      env:
+        aws_creds_file: ${{ secrets.AWS_CREDENTIALS }}
+
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false --var-file envs/tap-demo.tfvars
