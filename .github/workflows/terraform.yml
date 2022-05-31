@@ -79,15 +79,10 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: list files
-      run: ls -la
-
-    - name: Terraform Version
-      run: terraform version
-
     # Checks that all Terraform configuration files adhere to a canonical format
-#     - name: Terraform Format
+    - name: Terraform Format
 #       run: terraform fmt -check
+    run: terraform fmt
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
