@@ -27,9 +27,7 @@ jobs:
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      # with:
-      #   cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      uses: hashicorp/setup-terraform@v2
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -37,8 +35,8 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      run: terraform fmt
-#       run: terraform fmt -check
+      run: terraform fmt -check
+      continue-on-error: true
 
     - name: create AWS folder
       run: mkdir ~/.aws
@@ -47,11 +45,11 @@ jobs:
       run: echo $aws_creds_file > ~/.aws/credentials
       env:
         aws_creds_file: ${{ secrets.AWS_CREDENTIALS }}
-        
-    - name: check file
-      run: cat ~/.aws/credentials
+    
+    - name: Check AWS config
+      run: pwd; ls -la; ls -la ~; ls -la ~/.aws
 
-    # Generates an execution plan for Terraform
+#     # Generates an execution plan for Terraform
 #     - name: Terraform Plan
 #       run: terraform plan -input=false --var-file envs/tap-demo.tfvars -var "bootstrap_password=$tap_user_pass"
 #       env:
