@@ -51,7 +51,8 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false --var-file envs/tap-demo.tfvars -var "bootstrap_password=$tap_user_pass"
-      env: tap_user_pass: ${{ secrets.TAP_USER_PASS }}
+      env: 
+        tap_user_pass: ${{ secrets.TAP_USER_PASS }}
         
 
       # On push to master, build or change infrastructure according to Terraform configuration files
