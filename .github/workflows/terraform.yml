@@ -48,6 +48,9 @@ jobs:
     
     - name: Check AWS config
       run: pwd; ls -la; ls -la ~; ls -la ~/.aws
+      
+    - name: check env
+      run: env
 
 #     # Generates an execution plan for Terraform
 #     - name: Terraform Plan
