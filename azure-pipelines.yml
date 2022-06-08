@@ -1,0 +1,24 @@
+# Pipeline for automating the build of Aqua TAP environments using Terraform
+# GitHub:     https://github.com/aqua-ps/aqua-training-terraform
+# Maintainers: andrea.zorzetto@aquasec.com, 
+#              ken@aquasec.com
+# Department: Aqua Professional Services (services@aquasec.com)
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+# Don't validate PRs, only commits to main
+pr: none
+
+# Push contents of /site to the root of the aqua-ps-docs S3 bucket
+#- task: AWSCLI@1
+#  inputs:
+#    awsCredentials: 'AWS'
+#    regionName: 'us-east-1'
+#    awsCommand: 's3'
+#    awsSubCommand: 'sync'
+#    awsArguments: 'site/ s3://aqua-ps-docs/'
+
