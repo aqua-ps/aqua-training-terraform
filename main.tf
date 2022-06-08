@@ -3,17 +3,16 @@ provider "aws" {
 }
 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
+  source = "terraform-aws-modules/vpc/aws"
 
   name                 = var.vpc_name
   cidr                 = var.vpc_cidr
-
   azs                  = data.aws_availability_zones.available.names
   public_subnets       = var.public_subnets
   enable_dns_hostnames = true
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "dev"
   }
 }
@@ -37,7 +36,7 @@ module "security_group_web" {
       cidr_blocks = "0.0.0.0/0"
     },
   ]
-  egress_rules        = ["all-all"]
+  egress_rules = ["all-all"]
 }
 
 module "security_group_ssh" {
@@ -63,10 +62,10 @@ module "ec2" {
 
   instance_count = var.instance_count
 
-  name          = var.ec2_name
-  ami           = var.linux_ami != null ? var.linux_ami : data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  subnet_id     = tolist(module.vpc.public_subnets)[0]
+  name                        = var.ec2_name
+  ami                         = var.linux_ami != null ? var.linux_ami : data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
+  subnet_id                   = tolist(module.vpc.public_subnets)[0]
   vpc_security_group_ids      = var.additional_security_groups != null ? [module.security_group_web.security_group_id, module.security_group_ssh.security_group_id, var.additional_security_groups] : [module.security_group_web.security_group_id, module.security_group_ssh.security_group_id]
   associate_public_ip_address = true
 
