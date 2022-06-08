@@ -5,6 +5,12 @@ on:
     branches:
     - AZ/Actions
   pull_request:
+  workflow_dispatch:
+    inputs:
+    deploy_env:
+      description: 'Deploy Environment'
+      required: true
+      default: 'terraform'
 
 permissions:
   contents: read
