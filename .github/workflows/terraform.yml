@@ -30,7 +30,7 @@ jobs:
     # - name: Setup Terraform
     #   uses: hashicorp/setup-terraform@v2
     - name: Apt Setup
-      run: apt update && apt install -y wget unzip
+      run: sudo apt update && apt install -y wget unzip
 
     - name: Software Setup
       run: wget https://releases.hashicorp.com/terraform/1.2.3/terraform_1.2.3_linux_amd64.zip -O /tmp/terraform.zip
