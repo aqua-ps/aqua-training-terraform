@@ -53,9 +53,10 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform init && terraform workspace select '${{ github.event.inputs.class_name }}'
 
-    # # Checks that all Terraform configuration files adhere to a canonical format
+    # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
+      continue-on-error: true
 
     - name: Terraform Plan
       env: 
