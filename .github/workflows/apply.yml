@@ -7,10 +7,6 @@ on:
         description: 'Tap class name'
         required: true
         default: 'demo'
-      tap_password:
-        description: 'Password for ec2 instances and applications'
-        required: true
-        default: 'tapdemo'
 
 permissions:
   contents: read
