@@ -78,3 +78,7 @@ variable "bootstrap_version" {
   description = "Version of the bootstrap script to use as tagged in the Github repo"
   default = "master"
 }
+
+variable "associate_public_ip_address" {
+  default = true
+}
