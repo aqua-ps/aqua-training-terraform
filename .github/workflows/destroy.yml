@@ -1,4 +1,4 @@
-name: 'create'
+name: 'destroy'
 
 on:
   workflow_dispatch:
@@ -29,44 +29,26 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
-      
-    - name: Terraform plan
+        
+    - name: Terraform Init
       env: 
-        AWS_ACCESS_KEY_ID: ${{ secrets.TEST_FAKE_SECRET }}
-      run: env
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform init && terraform workspace new '${{ github.event.inputs.class_name }}'
 
-    # # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    # - name: Terraform Init
-    #   run: terraform init
+    - name: Terraform Workspace Select
+      env: 
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform init && terraform workspace select '${{ github.event.inputs.class_name }}'
 
     # # Checks that all Terraform configuration files adhere to a canonical format
-    # - name: Terraform Format
-    #   run: terraform fmt -check
-    #   continue-on-error: true
+    - name: Terraform Format
+      run: terraform fmt -check
+      continue-on-error: true
 
-    # - name: create AWS folder
-    #   run: mkdir ~/.aws
-      
-    # - name: Write creds
-    #   run: echo $aws_creds_file > ~/.aws/credentials
-    #   env:
-    #     aws_creds_file: ${{ secrets.AWS_CREDENTIALS }}
-    
-    # - name: Check AWS config
-    #   run: pwd; ls -la; ls -la ~; ls -la ~/.aws
-      
-    # - name: check env
-    #   run: env
-
-#     # Generates an execution plan for Terraform
-#     - name: Terraform Plan
-#       run: terraform plan -input=false --var-file envs/tap-demo.tfvars -var "bootstrap_password=$tap_user_pass"
-#       env:
-#         tap_user_pass: ${{ secrets.TAP_USER_PASS }}
-        
-
-      # On push to master, build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    # - name: Terraform Apply
-    #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    #   run: terraform apply -auto-approve -input=false
+    - name: Terraform Plan
+      env: 
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform apply -auto-approve -var=bootstrap_password='${{ github.event.inputs.tap_password }}' --var-file envs/tap-'${{ github.event.inputs.class_name }}'.tfvars
