@@ -7,7 +7,6 @@ on:
         description: 'Tap class name'
         required: true
         default: 'demo'
-    inputs:
       tap_password:
         description: 'Password for ec2 instances and applications'
         required: true
@@ -40,8 +39,15 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ sects.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ sreecrets.AWS_IAM_SECRET }}
       run: terraform init && terraform workspace new '${{ github.event.inputs.class_name }}'
+        
+    - name: Create Terraform Workspace
+      env: 
+        AWS_ACCESS_KEY_ID: ${{ sects.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ sreecrets.AWS_IAM_SECRET }}
+      run: terraform workspace new '${{ github.event.inputs.class_name }}'
+      continue-on-error: true
 
-    - name: Terraform Workspace Select
+    - name: Select Terraform Workspace 
       env: 
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
@@ -50,7 +56,6 @@ jobs:
     # # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
-      continue-on-error: false
 
     - name: Terraform Plan
       env: 
