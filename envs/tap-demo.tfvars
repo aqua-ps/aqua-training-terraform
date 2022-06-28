@@ -19,7 +19,7 @@ ingress_cidr_blocks_ssh = ["0.0.0.0/0"]
 
 //** EC2 ***********************//
 ec2_name = "aqua-tap-demo-22"
-instance_count = 2
+instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
