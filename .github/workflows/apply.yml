@@ -54,7 +54,7 @@ jobs:
       run: terraform fmt -check
       continue-on-error: true
 
-    - name: Terraform Plan
+    - name: Terraform Apply
       env: 
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
