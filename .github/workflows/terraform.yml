@@ -30,8 +30,10 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       
-    - name: test
-      run: terraform version
+    - name: Terraform plan
+      env: 
+        AWS_ACCESS_KEY_ID: ${{ secrets.TEST_FAKE_SECRET }}
+      run: env
 
     # # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     # - name: Terraform Init
