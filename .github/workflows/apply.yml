@@ -51,8 +51,8 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      run: terraform fmt -check
-      continue-on-error: true
+      run: terraform fmt -check -diff
+      # continue-on-error: true
 
     - name: Terraform Apply
       env: 
