@@ -26,7 +26,7 @@ variable "additional_security_groups" {
 }
 
 variable "ingress_cidr_blocks_web" {
-  type = list(string)
+  type    = list(string)
   default = ["0.0.0.0/0"]
 }
 
@@ -35,7 +35,7 @@ variable "linux_ami" {
 }
 
 variable "ingress_cidr_blocks_ssh" {
-  type = list(string)
+  type    = list(string)
   default = ["0.0.0.0/0"]
 }
 
@@ -67,7 +67,7 @@ variable "keypair_pubkey" {}
 
 variable "bootstrap_username" {
   description = "Username used to bootstrap vm ssh and Jenkins user"
-  default = "aquasec"
+  default     = "aquasec"
 }
 
 variable "bootstrap_password" {
@@ -76,7 +76,7 @@ variable "bootstrap_password" {
 
 variable "bootstrap_version" {
   description = "Version of the bootstrap script to use as tagged in the Github repo"
-  default = "master"
+  default     = "master"
 }
 
 variable "associate_public_ip_address" {
