@@ -2,17 +2,6 @@ variable "region" {
   default = "eu-west-2"
 }
 
-variable "vpc_name" {
-  default = "test-vpc"
-}
-variable "vpc_cidr" {
-  default = "10.0.0.0/16"
-}
-
-variable "public_subnets" {
-  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-}
-
 variable "environment" {
   default = "test"
 }
@@ -21,22 +10,30 @@ variable "application" {
   default = "test"
 }
 
-variable "additional_security_groups" {
-  default = null
+variable "owner" {
+  default = "Aqua Professional Services"
 }
 
-variable "ingress_cidr_blocks_web" {
-  type    = list(string)
-  default = ["0.0.0.0/0"]
+variable "additional_security_groups" {
+  default = null
 }
 
 variable "linux_ami" {
   default = null
 }
 
-variable "ingress_cidr_blocks_ssh" {
-  type    = list(string)
-  default = ["0.0.0.0/0"]
+variable "kubelet_security_group_id" {
+  default = "sg-00fc99daae98502e8"
+  type    = string
+}
+
+variable "ssh_security_group_id" {
+  default = "sg-02f2cf41dba0ef299"
+  type    = string
+}
+
+variable "public_subnets" {
+  default = ["subnet-00bd6a6c5cb8ed266", "subnet-0b74cd998da2425da", "subnet-0000098d704e1eefe"]
 }
 
 variable "instance_count" {
