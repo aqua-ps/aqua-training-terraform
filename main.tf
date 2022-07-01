@@ -28,7 +28,7 @@ module "ec2" {
   tags = {
     Environment = var.environment
     Application = var.application
-    Owner = var.owner
+    Owner       = var.owner
   }
 
   root_block_device = [{

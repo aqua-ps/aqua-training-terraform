@@ -24,12 +24,12 @@ variable "linux_ami" {
 
 variable "kubelet_security_group_id" {
   default = "sg-00fc99daae98502e8"
-  type = string
+  type    = string
 }
 
 variable "ssh_security_group_id" {
   default = "sg-02f2cf41dba0ef299"
-  type = string
+  type    = string
 }
 
 variable "public_subnets" {
