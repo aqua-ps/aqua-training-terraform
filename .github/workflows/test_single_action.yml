@@ -1,4 +1,4 @@
-name: 'create'
+name: 'test_do_not_use'
 
 on:
   workflow_dispatch:
