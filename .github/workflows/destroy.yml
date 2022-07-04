@@ -12,8 +12,8 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
-    name: 'Terraform Destroy'
+  plan:
+    name: 'Terraform Plan'
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -29,33 +29,78 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
-        
+
     - name: Terraform Init
-      env: 
+      env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform init
-        
+
     - name: Create Terraform Workspace
-      env: 
+      env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform workspace new tap-${{ github.event.inputs.class_name }}
       continue-on-error: true
 
-    - name: Select Terraform Workspace 
-      env: 
+    - name: Select Terraform Workspace
+      env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform workspace select tap-${{ github.event.inputs.class_name }}
 
-    # # Checks that all Terraform configuration files adhere to a canonical format
+    # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check -diff
       # continue-on-error: true
 
+    - name: Terraform Plan
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform plan -destroy -var=bootstrap_password="na" --var-file envs/tap-${{ github.event.inputs.class_name }}.tfvars
+
+  destroy:
+    name: 'Terraform Destroy'
+    needs: plan
+    if: github.event.inputs.apply_changes == 'yes'
+
+    runs-on: ubuntu-latest
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Init
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform init
+
+    - name: Create Terraform Workspace
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform workspace new tap-${{ github.event.inputs.class_name }}
+      continue-on-error: true
+
+    - name: Select Terraform Workspace
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform workspace select tap-${{ github.event.inputs.class_name }}
+
     - name: Terraform Destroy
-      env: 
+      env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform destroy -auto-approve -var=bootstrap_password="na"  --var-file envs/tap-${{ github.event.inputs.class_name }}.tfvars
