@@ -7,13 +7,19 @@ on:
         description: 'Tap class name'
         required: true
         default: 'demo'
+      run_type:
+        type: choice
+        description: Terraform Plan or Apply
+        options:
+          - plan
+          - apply
 
 permissions:
   contents: read
 
 jobs:
-  terraform:
-    name: 'Terraform Apply'
+  setup:
+    name: 'Terraform Setup'
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -54,13 +60,43 @@ jobs:
       run: terraform fmt -check -diff
       # continue-on-error: true
 
+  plan:
+    name: 'Terraform Setup'
+    if: github.event.inputs.run_type == "plan"
+
+    runs-on: ubuntu-latest
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Terraform Plan
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
+      run: terraform plan -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/tap-${{ github.event.inputs.class_name }}.tfvars
+
+  apply:
+    name: 'Terraform Apply'
+    if: github.event.inputs.run_type == "apply"
+
+    runs-on: ubuntu-latest
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
     - name: Terraform Apply
+      if: github.event.inputs.run_type == "apply"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform apply -auto-approve -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/tap-${{ github.event.inputs.class_name }}.tfvars
 
     - name: Terraform Output
+      if: github.event.inputs.run_type == "apply"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
