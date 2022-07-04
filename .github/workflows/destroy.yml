@@ -1,5 +1,11 @@
 name: 'destroy'
 
+env:
+  # this prefix will be appended to Terraform workspace name and variable file e.g.
+  # workspace: infra-nameprovided
+  # var file: infra-nameprovided.tfvars
+  PROJECT_PREFIX: tap
+
 on:
   workflow_dispatch:
     inputs:
@@ -46,7 +52,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform workspace select tap-${{ github.event.inputs.project_name }}
+      run: terraform workspace select $PROJECT_PREFIX-${{ github.event.inputs.project_name }}
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
@@ -57,7 +63,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform plan -destroy -var=bootstrap_password="na" --var-file envs/tap-${{ github.event.inputs.project_name }}.tfvars
+      run: terraform plan -destroy -var=bootstrap_password="na" --var-file envs/$PROJECT_PREFIX-${{ github.event.inputs.project_name }}.tfvars
 
   destroy:
     name: 'Terraform Destroy'
@@ -89,17 +95,17 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform workspace select tap-${{ github.event.inputs.project_name }}
+      run: terraform workspace select $PROJECT_PREFIX-${{ github.event.inputs.project_name }}
 
     - name: Terraform Destroy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform destroy -auto-approve -var=bootstrap_password="na" --var-file envs/tap-${{ github.event.inputs.project_name }}.tfvars
+      run: terraform destroy -auto-approve -var=bootstrap_password="na" --var-file envs/$PROJECT_PREFIX-${{ github.event.inputs.project_name }}.tfvars
 
     - name: Delete Terraform Workspace
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform workspace select default && terraform workspace delete tap-${{ github.event.inputs.project_name }}
+      run: terraform workspace select default && terraform workspace delete $PROJECT_PREFIX-${{ github.event.inputs.project_name }}
 
