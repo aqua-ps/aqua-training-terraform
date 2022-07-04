@@ -3,7 +3,7 @@ name: 'apply'
 on:
   workflow_dispatch:
     inputs:
-      class_name:
+      project_name:
         description: 'Tap class name'
         required: true
         default: 'demo'
@@ -46,7 +46,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform workspace select tap-${{ github.event.inputs.class_name }} || terraform workspace new tap-${{ github.event.inputs.class_name }}
+      run: terraform workspace select tap-${{ github.event.inputs.project_name }} || terraform workspace new tap-${{ github.event.inputs.project_name }}
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
@@ -57,7 +57,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform plan -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/tap-${{ github.event.inputs.class_name }}.tfvars
+      run: terraform plan -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/tap-${{ github.event.inputs.project_name }}.tfvars
 
   apply:
     name: 'Terraform Apply'
@@ -89,13 +89,13 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform workspace select tap-${{ github.event.inputs.class_name }} || terraform workspace new tap-${{ github.event.inputs.class_name }}
+      run: terraform workspace select tap-${{ github.event.inputs.project_name }} || terraform workspace new tap-${{ github.event.inputs.project_name }}
 
     - name: Terraform Apply
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_ACCESS }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
-      run: terraform apply -auto-approve -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/tap-${{ github.event.inputs.class_name }}.tfvars
+      run: terraform apply -auto-approve -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/tap-${{ github.event.inputs.project_name }}.tfvars
 
     - name: Terraform Output
       env:
