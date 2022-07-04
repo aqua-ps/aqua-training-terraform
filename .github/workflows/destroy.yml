@@ -7,6 +7,12 @@ on:
         description: 'Tap class name'
         required: true
         default: 'demo'
+      apply_changes:
+        type: choice
+        description: Apply changes after plan?
+        options:
+          - 'no'
+          - 'yes'
 
 permissions:
   contents: read
