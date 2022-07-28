@@ -8,7 +8,7 @@ owner = "Aqua Professional Services"
 #EC2
 ec2_name = "aqua-NZ-CN-22"
 instance_count = 2
-instance_type = "t3a.xlarge"
+instance_type = "t3.xlarge"
 linux_ami = "ami-08be70d36872187b9"
 
 bootstrap_username = "aquatapuser"
