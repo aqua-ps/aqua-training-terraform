@@ -28,7 +28,7 @@ jobs:
 #    name: "Terraform Plan ${{ github.event.inputs.project_name }}"
     name: "Terraform Plan"
     runs-on: ubuntu-latest
-    if: github.event.inputs.apply_changes == 'no'
+#    if: github.event.inputs.apply_changes == 'no'
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
