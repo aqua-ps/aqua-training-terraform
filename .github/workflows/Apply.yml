@@ -25,7 +25,8 @@ permissions:
 
 jobs:
   Plan:
-    name: "Terraform Plan ${{ github.event.inputs.project_name }}"
+#    name: "Terraform Plan ${{ github.event.inputs.project_name }}"
+    name: "Terraform Plan"
     runs-on: ubuntu-latest
     if: github.event.inputs.apply_changes == 'no'
 
@@ -67,7 +68,8 @@ jobs:
       run: terraform plan -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/$PROJECT_PREFIX-${{ github.event.inputs.project_name }}.tfvars
 
   Apply:
-    name: "Terraform Apply ${{ github.event.inputs.project_name }}"
+#    name: "Terraform Apply ${{ github.event.inputs.project_name }}"
+    name: "Terraform Apply"
     if: github.event.inputs.apply_changes == 'yes'
 
     runs-on: ubuntu-latest
