@@ -1,4 +1,4 @@
-name: 'apply'
+name: 'Apply'
 
 env:
   # this prefix will be appended to Terraform workspace name and variable file e.g.
@@ -15,7 +15,7 @@ on:
         default: 'demo'
       apply_changes:
         type: choice
-        description: Apply changes after plan?
+        description: Apply changes after Terraform Plan?
         options:
           - 'no'
           - 'yes'
@@ -24,9 +24,10 @@ permissions:
   contents: read
 
 jobs:
-  plan:
-    name: 'Terraform Plan'
+  Plan:
+    name: "Terraform Plan ${{ github.event.inputs.project_name }}"
     runs-on: ubuntu-latest
+    if: github.event.inputs.apply_changes == 'no'
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -65,9 +66,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_SECRET }}
       run: terraform plan -var=bootstrap_password='${{ secrets.TAP_USER_PASS }}' --var-file envs/$PROJECT_PREFIX-${{ github.event.inputs.project_name }}.tfvars
 
-  apply:
-    name: 'Terraform Apply'
-    needs: plan
+  Apply:
+    name: "Terraform Apply ${{ github.event.inputs.project_name }}"
     if: github.event.inputs.apply_changes == 'yes'
 
     runs-on: ubuntu-latest
