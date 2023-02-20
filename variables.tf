@@ -76,6 +76,12 @@ variable "bootstrap_version" {
   default     = "master"
 }
 
+variable "deploy_gitlab" {
+  description = "Deploy gitlab instead of jenkins"
+  type        = bool
+  default     = false
+}
+
 variable "associate_public_ip_address" {
   default = true
 }
