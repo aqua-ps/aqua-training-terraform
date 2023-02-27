@@ -1,4 +1,4 @@
-region = "eu-west-2"
+region = "us-east-2"
 
 #TAGS
 environment = "Production"
