@@ -12,7 +12,7 @@ ssh_security_group_id = "sg-0b50599c9d033d036"
 
 #EC2
 ec2_name = "aqua-tap-fl-23"
-instance_count = 1
+instance_count = 15
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
