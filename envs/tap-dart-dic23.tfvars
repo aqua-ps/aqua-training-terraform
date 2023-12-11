@@ -7,7 +7,7 @@ owner = "Andrea Zorzetto"
 
 #EC2
 ec2_name = "aqua-dart-gl-nov-23"
-instance_count = 6
+instance_count = 3
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
