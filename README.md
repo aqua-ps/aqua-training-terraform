@@ -50,3 +50,4 @@ Here's a checklist for you:
  - [ ] Reviewed plan
  - [ ] Double checked there's no additional resources in there
  - [ ] Are you definitely sure? Ok now re-run the Destroy workflow with `Apply changes after plan?` set to `yes`
+ - [ ] Apologise to everyone whose environments you just deleted because you didn't follow steps 1-4
