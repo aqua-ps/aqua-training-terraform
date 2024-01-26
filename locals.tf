@@ -2,7 +2,7 @@ locals {
   user_data = <<EOF
 #!/bin/bash
 
-curl -sL https://raw.githubusercontent.com/aqua-ps/aqua-training-userscript/${var.bootstrap_version}/user-script.sh | bash -s -- -u ${var.bootstrap_username} -p ${var.bootstrap_password} -b ${var.bootstrap_version} -g ${var.deploy_gitlab}
+curl -sL https://raw.githubusercontent.com/aqua-ps/aqua-training-userscript/${var.bootstrap_version}/user-script.sh | bash -s -- -u ${var.bootstrap_username} -p ${var.bootstrap_password} -b ${var.bootstrap_version} ${var.deploy_gitlab ? "-g " : ""}
 
 EOF
 }
