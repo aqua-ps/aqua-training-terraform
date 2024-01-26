@@ -3,11 +3,11 @@ region = "eu-west-2"
 #TAGS
 environment = "Production"
 application = "DART"
-owner = "Andrea Zorzetto"
+owner = "Ken"
 
 #EC2
-ec2_name = "aqua-dart-gl-nov-23"
-instance_count = 3
+ec2_name = "dart-csms-jan-26-2024"
+instance_count = 2
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
