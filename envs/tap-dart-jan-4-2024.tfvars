@@ -7,7 +7,7 @@ owner = "Ken"
 
 #EC2
 ec2_name = "aqua-dart-jan-4-2024"
-instance_count = 9
+instance_count = 2
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
