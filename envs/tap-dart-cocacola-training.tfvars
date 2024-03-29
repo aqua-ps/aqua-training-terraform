@@ -7,7 +7,7 @@ owner = "Ken"
 
 #EC2
 ec2_name = "tap-dart-cocacola-training"
-instance_count = 14
+instance_count = 16
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
