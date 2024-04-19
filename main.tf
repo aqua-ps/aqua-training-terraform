@@ -14,6 +14,7 @@ module "ec2" {
   instance_count = var.instance_count
 
   name                        = var.ec2_name
+#   ami                         = var.linux_ami != null ? var.linux_ami : data.aws_ami.ubuntu.id
   ami                         = var.linux_ami
   instance_type               = var.instance_type
   subnet_id                   = tolist(var.public_subnets)[random_integer.subnet.result]
