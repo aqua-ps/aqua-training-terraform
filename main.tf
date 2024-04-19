@@ -14,7 +14,7 @@ module "ec2" {
   instance_count = var.instance_count
 
   name                        = var.ec2_name
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = var.linux_ami
   instance_type               = var.instance_type
   subnet_id                   = tolist(var.public_subnets)[random_integer.subnet.result]
   vpc_security_group_ids      = var.additional_security_groups != null ? [var.kubelet_security_group_id, var.ssh_security_group_id, var.additional_security_groups] : [var.kubelet_security_group_id, var.ssh_security_group_id]
