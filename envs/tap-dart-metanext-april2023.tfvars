@@ -9,7 +9,7 @@ owner = "Ken"
 ec2_name = "tap-dart-metanext-april2023"
 instance_count = 2
 instance_type = "t3a.xlarge"
-#linux_ami = "ami-08be70d36872187b9"
+linux_ami = "ami-08be70d36872187b9"
 
 bootstrap_username = "aquatapuser"
 deploy_gitlab = true
