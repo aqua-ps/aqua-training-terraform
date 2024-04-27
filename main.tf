@@ -15,7 +15,7 @@ module "ec2" {
 
   name                        = var.ec2_name
   #ami                         = var.linux_ami != null ? var.linux_ami : data.aws_ami.ubuntu.id
-  ami                         = var.linux_ami == null ? var.linux_ami : data.aws_ami.ubuntu.id
+  ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   subnet_id                   = tolist(var.public_subnets)[random_integer.subnet.result]
   vpc_security_group_ids      = var.additional_security_groups != null ? [var.kubelet_security_group_id, var.ssh_security_group_id, var.additional_security_groups] : [var.kubelet_security_group_id, var.ssh_security_group_id]
