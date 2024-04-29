@@ -1,4 +1,4 @@
-/*
+
 data "aws_ami" "amazon_linux" {
   most_recent = true
 
@@ -20,7 +20,7 @@ data "aws_ami" "amazon_linux" {
     ]
   }
 }
-*/
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
