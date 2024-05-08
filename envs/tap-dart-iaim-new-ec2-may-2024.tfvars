@@ -6,7 +6,7 @@ application = "DART"
 owner = "Max"
 
 #EC2
-ec2_name = "tap-dart-iaim-may-2024"
+ec2_name = "tap-dart-iaim-new-ec2-may-2024"
 instance_count = 3
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
