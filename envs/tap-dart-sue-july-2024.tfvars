@@ -6,8 +6,8 @@ application = "TAP"
 owner = "Max"
 
 #EC2
-ec2_name = "tap-sue-may-2024"
-instance_count = 2
+ec2_name = "tap-sue-july-2024"
+instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
 
