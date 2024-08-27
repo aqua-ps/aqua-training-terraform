@@ -6,7 +6,7 @@ application = "TAP"
 owner = "Max"
 
 #EC2
-ec2_name = "tap-soultec-august-2024"
+ec2_name = "tap-infiniteranges-august-2024"
 instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
