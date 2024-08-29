@@ -3,10 +3,10 @@ region = "eu-west-2"
 #TAGS
 environment = "Dev"
 application = "TAP"
-owner = "Max"
+owner = "Internal Training Sample"
 
 #EC2
-ec2_name = "tap-infiniteranges-august-2024"
+ec2_name = "tap-internaltraining-august-2024"
 instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
