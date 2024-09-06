@@ -3,7 +3,7 @@ region = "eu-west-2"
 #TAGS
 environment = "Production"
 application = "DART"
-owner = "Ken"
+owner = "PS"
 
 #EC2
 ec2_name = "tap-dart-avengers-sept-24"
