@@ -6,7 +6,7 @@ application = "DART"
 owner = "Ken"
 
 #EC2
-ec2_name = "tap-ken-flux"
+ec2_name = "tap-dart-andy-onboarding"
 instance_count = 1
 instance_type = "t3a.xlarge"
 #linux_ami = "ami-08be70d36872187b9"
